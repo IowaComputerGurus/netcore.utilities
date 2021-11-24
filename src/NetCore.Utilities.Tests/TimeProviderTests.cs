@@ -132,21 +132,5 @@ namespace ICG.NetCore.Utilities.Tests
             //Act.Assert
             Assert.Throws<TimeZoneNotFoundException>(() => _timeProvider.ConvertTimeToUtc(targetTimezone, startDate));
         }
-
-        [Fact]
-        public void ConvertTimes_ShouldSupportConversionBothDirections()
-        {
-            //Arrange
-            var startDate = DateTime.UtcNow;
-            var targetTimezone = Timezones.CentralStandardTime;
-
-            //Act
-            var convertedLocal = _timeProvider.ConvertTimeFromUtc(targetTimezone, startDate);
-            var convertedUtc = _timeProvider.ConvertTimeToUtc(targetTimezone, convertedLocal);
-
-            //Assert
-            Assert.Equal(startDate, convertedUtc);
-
-        }
     }
 }
