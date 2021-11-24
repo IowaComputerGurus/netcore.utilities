@@ -1,7 +1,6 @@
 # netcore.utilities ![](https://img.shields.io/github/license/iowacomputergurus/netcore.utilities.svg)
-| Master | Develop |
-| --- | --- |
-| ![Master Branch Status](https://iowacomputergurus.visualstudio.com/ICG%20Open%20Source/_apis/build/status/NetCore%20Utilities?branchName=master) | ![Develop Branch Status](https://iowacomputergurus.visualstudio.com/ICG%20Open%20Source/_apis/build/status/NetCore%20Utilities?branchName=develop) |
+
+![Build Status](https://github.com/IowaComputerGurus/netcore.utilities/actions/workflows/ci-build.yml/badge.svg)
 
 ## NuGet Package Information
 ICG.NetCore.Utilities ![](https://img.shields.io/nuget/v/icg.netcore.utilities.svg) ![](https://img.shields.io/nuget/dt/icg.netcore.utilities.svg)
