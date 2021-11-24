@@ -8,6 +8,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>ICG.NetCore.Utilities</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />
@@ -23,7 +24,7 @@
     <RepositoryUrl>https://github.com/IowaComputerGurus/netcore.utilities</RepositoryUrl>
     <Authors>MitchelSellers;IowaComputerGurus</Authors>
     <Owners>IowaComputerGurus</Owners>
-    <PackageIconUrl>https://raw.githubusercontent.com/IowaComputerGurus/netcore.utilities/master/icgAppIcon.png</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/IowaComputerGurus/netcore.utilities/develop/icgAppIcon.png</PackageIconUrl>
     <IsPackable>True</IsPackable>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
@@ -31,7 +32,7 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TF_BUILD)' == 'true'">
+  <PropertyGroup Condition="'$GITHUB_ACTIONS)' == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
 
