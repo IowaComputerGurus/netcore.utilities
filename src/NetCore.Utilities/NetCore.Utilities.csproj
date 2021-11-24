@@ -24,7 +24,7 @@
     <RepositoryUrl>https://github.com/IowaComputerGurus/netcore.utilities</RepositoryUrl>
     <Authors>MitchelSellers;IowaComputerGurus</Authors>
     <Owners>IowaComputerGurus</Owners>
-    <PackageIconUrl>https://raw.githubusercontent.com/IowaComputerGurus/netcore.utilities/develop/icgAppIcon.png</PackageIconUrl>
+    <PackageIcon>icgAppIcon.png</PackageIcon>
     <IsPackable>True</IsPackable>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
@@ -32,6 +32,10 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
 
+  <ItemGroup>
+  	<None Include="icgAppIcon.png" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+  
   <PropertyGroup Condition="'$GITHUB_ACTIONS)' == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
