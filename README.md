@@ -15,7 +15,7 @@ A collection of helpful utilities for working with .NET 5 + projects.  These ite
 Install from NuGet
 
 ```
-Install-Package ICG.AspNetCore.Utilities
+Install-Package ICG.NetCore.Utilities
 ```
 
 ### Register Dependencies
