@@ -96,9 +96,7 @@ namespace ICG.NetCore.Utilities
                 throw new ArgumentNullException("Key");
             if (string.IsNullOrEmpty(_serviceOptions.IV))
                 throw new ArgumentNullException("IV");
-            byte[] encrypted;
-
-
+           
             // Declare the string used to hold
             // the decrypted text.
             string plaintext = string.Empty;

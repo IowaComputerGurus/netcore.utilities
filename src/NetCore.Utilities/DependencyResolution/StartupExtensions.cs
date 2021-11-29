@@ -12,6 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// Registers the items included in the ICG NetCore Utilities project for Dependency Injection
         /// </summary>
         /// <param name="services">Your existing services collection</param>
+        /// <param name="configuration">The configuration instance to load settings</param>
         public static void UseIcgNetCoreUtilities(this IServiceCollection services, IConfiguration configuration )
         {
             //Bind additional services

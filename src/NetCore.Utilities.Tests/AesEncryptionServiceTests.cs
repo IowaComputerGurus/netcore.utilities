@@ -32,6 +32,10 @@ namespace ICG.NetCore.Utilities.Tests
             Assert.Equal(input, decrypted);
         }
 
+        ///<summary>
+        ///    This test is need to ensure that stored values, that were encrypted with the known IV/Secret still can be properly decrypted.  
+        ///    This was necessary after weird behaviors noticed in .NET 5 -> .NET 6 transition
+        /// </summary>
         [Theory]
         [InlineData("b21WiVMxr+V9tlz097TJukwZaUNb3upD44EaZMe4r88Z8CJJyj9DMcQ+Rz1xha2G", "msellers@iowacomputergurus.com|1234567890")]
         [InlineData("AjBzF0gYOERux9RI39D5MaFoM0qyuYFzH4X0rxPEx4k=", "msellers|1234567890")]
