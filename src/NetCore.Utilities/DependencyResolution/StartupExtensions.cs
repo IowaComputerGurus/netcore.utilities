@@ -1,4 +1,5 @@
 ﻿using ICG.NetCore.Utilities;
+using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -11,7 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// Registers the items included in the ICG NetCore Utilities project for Dependency Injection
         /// </summary>
         /// <param name="services">Your existing services collection</param>
-        public static void UseIcgNetCoreUtilities(this IServiceCollection services)
+        public static void UseIcgNetCoreUtilities(this IServiceCollection services, IConfiguration configuration )
         {
             //Bind additional services
             services.AddTransient<IUrlSlugGenerator, UrlSlugGenerator>();
@@ -22,6 +23,10 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<IDatabaseEnvironmentModelFactory, DatabaseEnvironmentModelFactory>();
             services.AddTransient<IFileProvider, FileProvider>();
             services.AddTransient<IDirectoryProvider, DirectoryProvider>();
+            services.AddTransient<IAesEncryptionService, AesEncryptionService>();
+
+            services.Configure<AesEncryptionServiceOptions>(configuration.GetSection(nameof(AesEncryptionServiceOptions)));
+
         }
     }
 }
