@@ -11,7 +11,7 @@ namespace ICG.NetCore.Utilities
     public interface IAesEncryptionService
     {
         /// <summary>
-        ///     Encrypts the provided string into an AES encrypted string.
+        ///     Encrypts the provided plain-text string into an AES encrypted string.
         /// </summary>
         /// <param name="plainTextInput">The plain text string to be encrypted</param>
         /// <exception cref="ArgumentNullException">If [plainTextInput] is null</exception>
