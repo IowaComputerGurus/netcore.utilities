@@ -6,12 +6,12 @@ using System.Security.Cryptography;
 namespace ICG.NetCore.Utilities
 {
     /// <summary>
-    ///     Represents a service that can encrypt and decrypt strings using symmetric AES encryption.
+    ///     Represents a service that can encrypt and decrypt strings using symmetric AES encryption, using a stored key/iv.
     /// </summary>
     public interface IAesEncryptionService
     {
         /// <summary>
-        ///     Encrypts the provided string into an AES encrypted string.
+        ///     Encrypts the provided plain-text string into an AES encrypted string.
         /// </summary>
         /// <param name="plainTextInput">The plain text string to be encrypted</param>
         /// <exception cref="ArgumentNullException">If [plainTextInput] is null</exception>
@@ -21,7 +21,7 @@ namespace ICG.NetCore.Utilities
         string Encrypt(string plainTextInput);
 
         /// <summary>
-        ///     Decrypts the provided string into an AES encrypted string.
+        ///     Decrypts the provided string from an AES encrypted string back to plain text.
         /// </summary>
         /// <param name="encryptedInput">The encrypted string to be decrypted</param>
         /// <exception cref="ArgumentNullException">If [encryptedInput] is null</exception>
