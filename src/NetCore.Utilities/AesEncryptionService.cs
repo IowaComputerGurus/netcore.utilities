@@ -21,7 +21,7 @@ namespace ICG.NetCore.Utilities
         string Encrypt(string plainTextInput);
 
         /// <summary>
-        ///     Decrypts the provided string into an AES encrypted string.
+        ///     Decrypts the provided string from an AES encrypted string back to plain text.
         /// </summary>
         /// <param name="encryptedInput">The encrypted string to be decrypted</param>
         /// <exception cref="ArgumentNullException">If [encryptedInput] is null</exception>
