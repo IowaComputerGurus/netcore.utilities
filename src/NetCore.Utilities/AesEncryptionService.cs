@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 namespace ICG.NetCore.Utilities
 {
     /// <summary>
-    ///     Represents a service that can encrypt and decrypt strings using symmetric AES encryption.
+    ///     Represents a service that can encrypt and decrypt strings using symmetric AES encryption, using a stored key/iv.
     /// </summary>
     public interface IAesEncryptionService
     {
