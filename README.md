@@ -6,7 +6,7 @@
 ICG.NetCore.Utilities ![](https://img.shields.io/nuget/v/icg.netcore.utilities.svg) ![](https://img.shields.io/nuget/dt/icg.netcore.utilities.svg)
 
 
-A collection of helpful utilities for working with .NET 5 + projects.  These items are used by the IowaComputerGurus Team to aid in unit testing and other common tasks
+A collection of helpful utilities for working with .NET + projects.  These items are used by the IowaComputerGurus Team to aid in unit testing and other common tasks
 
 ## Usage
 
