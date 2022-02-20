@@ -11,6 +11,12 @@ namespace ICG.NetCore.Utilities
     public interface IAesEncryptionService
     {
         /// <summary>
+        ///     Provides new Key and IV values that can be used for encryption.
+        /// </summary>
+        /// <returns>A populated <see cref="AesEncryptionServiceOptions"/> object with the Key and IV value</returns>
+        AesEncryptionServiceOptions GenerateEncryptionSecrets();
+
+        /// <summary>
         ///     Encrypts the provided plain-text string into an AES encrypted string, utilizing a configured key and IV value
         /// </summary>
         /// <param name="plainTextInput">The plain text string to be encrypted</param>
@@ -67,6 +73,20 @@ namespace ICG.NetCore.Utilities
         public AesEncryptionService(IOptions<AesEncryptionServiceOptions> serviceOptions)
         {
             _serviceOptions = serviceOptions.Value;
+        }
+
+        /// <inheritdoc />
+        public AesEncryptionServiceOptions GenerateEncryptionSecrets()
+        {
+            var myAes = Aes.Create();
+            var key = Convert.ToBase64String(myAes.Key);
+            var iv = Convert.ToBase64String(myAes.IV);
+
+            return new AesEncryptionServiceOptions
+            {
+                Key = key,
+                IV = iv
+            };
         }
 
         /// <inheritdoc />
