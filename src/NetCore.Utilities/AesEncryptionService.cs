@@ -11,24 +11,54 @@ namespace ICG.NetCore.Utilities
     public interface IAesEncryptionService
     {
         /// <summary>
-        ///     Encrypts the provided plain-text string into an AES encrypted string.
+        ///     Provides new Key and IV values that can be used for encryption.
+        /// </summary>
+        /// <returns>A populated <see cref="AesEncryptionServiceOptions"/> object with the Key and IV value</returns>
+        AesEncryptionServiceOptions GenerateEncryptionSecrets();
+
+        /// <summary>
+        ///     Encrypts the provided plain-text string into an AES encrypted string, utilizing a configured key and IV value
         /// </summary>
         /// <param name="plainTextInput">The plain text string to be encrypted</param>
         /// <exception cref="ArgumentNullException">If [plainTextInput] is null</exception>
-        /// <exception cref="ArgumentNullException">If option key is null</exception>
-        /// <exception cref="ArgumentNullException">If option IV is null</exception>
+        /// <exception cref="ArgumentNullException">If option key is null in the configuration</exception>
+        /// <exception cref="ArgumentNullException">If option IV is null in the configuration</exception>
         /// <returns>A encrypted string representing the provided plain text string.</returns>
         string Encrypt(string plainTextInput);
 
         /// <summary>
-        ///     Decrypts the provided string from an AES encrypted string back to plain text.
+        ///     Encrypts the provided plain-text string into an AES encrypted string, utilizing a provided key and IV value
+        /// </summary>
+        /// <param name="plainTextInput">The plain text string to be encrypted</param>
+        /// <param name="key">The encryption key to be used</param>
+        /// <param name="iv">The initialization vector to be used</param>
+        /// <exception cref="ArgumentNullException">If [plainTextInput] is null</exception>
+        /// <exception cref="ArgumentNullException">If option key is null</exception>
+        /// <exception cref="ArgumentNullException">If option IV is null</exception>
+        /// <returns>A encrypted string representing the provided plain text string.</returns>
+        string Encrypt(string plainTextInput, string key, string iv);
+
+        /// <summary>
+        ///     Decrypts the provided string from an AES encrypted string back to plain text, utilizing a configured key and IV value
         /// </summary>
         /// <param name="encryptedInput">The encrypted string to be decrypted</param>
+        /// <exception cref="ArgumentNullException">If [encryptedInput] is null</exception>
+        /// <exception cref="ArgumentNullException">If option key is null in the configuration</exception>
+        /// <exception cref="ArgumentNullException">If option IV is null in the configuration</exception>
+        /// <returns>A plain text string of the provided encryption text string.</returns>
+        string Decrypt(string encryptedInput);
+
+        /// <summary>
+        ///     Decrypts the provided string from an AES encrypted string back to plain text, utilizing a provided key and IV value
+        /// </summary>
+        /// <param name="encryptedInput">The encrypted string to be decrypted</param>
+        /// <param name="key">The encryption key to be used</param>
+        /// <param name="iv">The initialization vector to be used</param>
         /// <exception cref="ArgumentNullException">If [encryptedInput] is null</exception>
         /// <exception cref="ArgumentNullException">If option key is null</exception>
         /// <exception cref="ArgumentNullException">If option IV is null</exception>
         /// <returns>A plain text string of the provided encryption text string.</returns>
-        string Decrypt(string encryptedInput);
+        string Decrypt(string encryptedInput, string key, string iv);
     }
 
     /// <inheritdoc />
@@ -46,23 +76,43 @@ namespace ICG.NetCore.Utilities
         }
 
         /// <inheritdoc />
+        public AesEncryptionServiceOptions GenerateEncryptionSecrets()
+        {
+            var myAes = Aes.Create();
+            var key = Convert.ToBase64String(myAes.Key);
+            var iv = Convert.ToBase64String(myAes.IV);
+
+            return new AesEncryptionServiceOptions
+            {
+                Key = key,
+                IV = iv
+            };
+        }
+
+        /// <inheritdoc />
         public string Encrypt(string plainTextInput)
+        {
+            return Encrypt(plainTextInput, _serviceOptions.Key, _serviceOptions.IV);
+        }
+
+        /// <inheritdoc />
+        public string Encrypt(string plainTextInput, string key, string iv)
         {
             // Check arguments.
             if (string.IsNullOrEmpty(plainTextInput))
                 throw new ArgumentNullException("plainText");
-            if (string.IsNullOrEmpty(_serviceOptions.Key))
-                throw new ArgumentNullException("Key");
-            if (string.IsNullOrEmpty(_serviceOptions.IV))
-                throw new ArgumentNullException("IV");
+            if (string.IsNullOrEmpty(key))
+                throw new ArgumentNullException("key");
+            if (string.IsNullOrEmpty(iv))
+                throw new ArgumentNullException("iv");
             byte[] encrypted;
 
             // Create an Aes object
             // with the specified key and IV.
             using (var aesAlg = Aes.Create())
             {
-                aesAlg.Key = Convert.FromBase64String(_serviceOptions.Key);
-                aesAlg.IV = Convert.FromBase64String(_serviceOptions.IV);
+                aesAlg.Key = Convert.FromBase64String(key);
+                aesAlg.IV = Convert.FromBase64String(iv);
 
                 // Create an encryptor to perform the stream transform.
                 ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
@@ -89,14 +139,20 @@ namespace ICG.NetCore.Utilities
         /// <inheritdoc />
         public string Decrypt(string encryptedInput)
         {
+            return Decrypt(encryptedInput, _serviceOptions.Key, _serviceOptions.IV);
+        }
+
+        /// <inheritdoc />
+        public string Decrypt(string encryptedInput, string key, string iv)
+        {
             // Check arguments.
             if (string.IsNullOrEmpty(encryptedInput))
                 throw new ArgumentNullException("encryptedInput");
-            if (string.IsNullOrEmpty(_serviceOptions.Key))
+            if (string.IsNullOrEmpty(key))
                 throw new ArgumentNullException("Key");
-            if (string.IsNullOrEmpty(_serviceOptions.IV))
+            if (string.IsNullOrEmpty(iv))
                 throw new ArgumentNullException("IV");
-           
+
             // Declare the string used to hold
             // the decrypted text.
             string plaintext = string.Empty;
@@ -105,8 +161,8 @@ namespace ICG.NetCore.Utilities
             // with the specified key and IV.
             using (Aes aesAlg = Aes.Create())
             {
-                aesAlg.Key = Convert.FromBase64String(_serviceOptions.Key);
-                aesAlg.IV = Convert.FromBase64String(_serviceOptions.IV);
+                aesAlg.Key = Convert.FromBase64String(key);
+                aesAlg.IV = Convert.FromBase64String(iv);
 
                 // Create a decryptor to perform the stream transform.
                 ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
