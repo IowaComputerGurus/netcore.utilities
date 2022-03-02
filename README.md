@@ -1,12 +1,19 @@
 # netcore.utilities ![](https://img.shields.io/github/license/iowacomputergurus/netcore.utilities.svg)
 
+A collection of helpful utilities for working with .NET + projects.  These items are used by the IowaComputerGurus Team to aid in unit testing and other common tasks
+
 ![Build Status](https://github.com/IowaComputerGurus/netcore.utilities/actions/workflows/ci-build.yml/badge.svg)
 
 ## NuGet Package Information
 ICG.NetCore.Utilities ![](https://img.shields.io/nuget/v/icg.netcore.utilities.svg) ![](https://img.shields.io/nuget/dt/icg.netcore.utilities.svg)
 
+## SonarCloud Analysis
 
-A collection of helpful utilities for working with .NET + projects.  These items are used by the IowaComputerGurus Team to aid in unit testing and other common tasks
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=IowaComputerGurus_netcore.utilities&metric=alert_status)](https://sonarcloud.io/dashboard?id=IowaComputerGurus_netcore.utilities)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=IowaComputerGurus_netcore.utilities&metric=coverage)](https://sonarcloud.io/dashboard?id=IowaComputerGurus_netcore.utilities)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=IowaComputerGurus_netcore.utilities&metric=security_rating)](https://sonarcloud.io/dashboard?id=IowaComputerGurus_netcore.utilities)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=IowaComputerGurus_netcore.utilities&metric=sqale_index)](https://sonarcloud.io/dashboard?id=IowaComputerGurus_netcore.utilities)
+
 
 ## Usage
 
