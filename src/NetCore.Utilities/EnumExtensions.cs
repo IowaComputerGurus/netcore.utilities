@@ -17,19 +17,12 @@ public static class EnumExtensions
     /// <returns></returns>
     public static string GetDisplayNameOrStringValue(this Enum enumValue)
     {
-        try
-        {
-            return enumValue?
-                .GetType()?
-                .GetMember(enumValue.ToString())?
-                .First()?
-                .GetCustomAttribute<DisplayAttribute>()?
-                .GetName() ?? enumValue?.ToString();
-        }
-        catch (InvalidOperationException)
-        {
-            return string.Empty;
-        }
+        return enumValue?
+            .GetType()?
+            .GetMember(enumValue.ToString())?
+            .First()?
+            .GetCustomAttribute<DisplayAttribute>()?
+            .GetName() ?? enumValue?.ToString();
     }
 
     /// <summary>
