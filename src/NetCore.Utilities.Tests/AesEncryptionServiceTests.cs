@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.Extensions.Options;
+using System;
 using Xunit;
 
 namespace ICG.NetCore.Utilities.Tests
@@ -16,6 +17,78 @@ namespace ICG.NetCore.Utilities.Tests
         public AesEncryptionServiceTests()
         {
             _service = new AesEncryptionService(new OptionsWrapper<AesEncryptionServiceOptions>(_options));
+        }
+
+        [Fact]
+        public void Encrypt_ShouldThrowArgumentNullException_WhenMissingPlainTextData()
+        {
+            //Arrange
+            var key = "key";
+            var iv = "iv";
+
+            //Act
+            var exception = Assert.Throws<ArgumentNullException>(() => _service.Encrypt(null, key, iv));
+            Assert.Equal("plainTextInput", exception.ParamName);
+        }
+
+        [Fact]
+        public void Encrypt_ShouldThrowArgumentNullException_WhenMissingKey()
+        {
+            //Arrange
+            var plainText = "Testing";
+            var iv = "iv";
+
+            //Act
+            var exception = Assert.Throws<ArgumentNullException>(() => _service.Encrypt(plainText, null, iv));
+            Assert.Equal("key", exception.ParamName);
+        }
+        
+        [Fact]
+        public void Encrypt_ShouldThrowArgumentNullException_WhenMissingIv()
+        {
+            //Arrange
+            var plainText = "Testing";
+            var key = "mykey";
+
+            //Act
+            var exception = Assert.Throws<ArgumentNullException>(() => _service.Encrypt(plainText, key, null));
+            Assert.Equal("iv", exception.ParamName);
+        }
+
+        [Fact]
+        public void Decrypt_ShouldThrowArgumentNullException_WhenMissingEncryptedTextData()
+        {
+            //Arrange
+            var key = "key";
+            var iv = "iv";
+
+            //Act
+            var exception = Assert.Throws<ArgumentNullException>(() => _service.Decrypt(null, key, iv));
+            Assert.Equal("encryptedInput", exception.ParamName);
+        }
+
+        [Fact]
+        public void Decrypt_ShouldThrowArgumentNullException_WhenMissingKey()
+        {
+            //Arrange
+            var encryptedText = "Testing";
+            var iv = "iv";
+
+            //Act
+            var exception = Assert.Throws<ArgumentNullException>(() => _service.Decrypt(encryptedText, null, iv));
+            Assert.Equal("key", exception.ParamName);
+        }
+
+        [Fact]
+        public void Descrypt_ShouldThrowArgumentNullException_WhenMissingIv()
+        {
+            //Arrange
+            var encryptedText = "Testing";
+            var key = "mykey";
+
+            //Act
+            var exception = Assert.Throws<ArgumentNullException>(() => _service.Decrypt(encryptedText, key, null));
+            Assert.Equal("iv", exception.ParamName);
         }
 
         [Theory]

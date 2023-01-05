@@ -100,11 +100,11 @@ namespace ICG.NetCore.Utilities
         {
             // Check arguments.
             if (string.IsNullOrEmpty(plainTextInput))
-                throw new ArgumentNullException("plainText");
+                throw new ArgumentNullException(nameof(plainTextInput));
             if (string.IsNullOrEmpty(key))
-                throw new ArgumentNullException("key");
+                throw new ArgumentNullException(nameof(key));
             if (string.IsNullOrEmpty(iv))
-                throw new ArgumentNullException("iv");
+                throw new ArgumentNullException(nameof(iv));
             byte[] encrypted;
 
             // Create an Aes object
@@ -147,11 +147,11 @@ namespace ICG.NetCore.Utilities
         {
             // Check arguments.
             if (string.IsNullOrEmpty(encryptedInput))
-                throw new ArgumentNullException("encryptedInput");
+                throw new ArgumentNullException(nameof(encryptedInput));
             if (string.IsNullOrEmpty(key))
-                throw new ArgumentNullException("Key");
+                throw new ArgumentNullException(nameof(key));
             if (string.IsNullOrEmpty(iv))
-                throw new ArgumentNullException("IV");
+                throw new ArgumentNullException(nameof(iv));
 
             // Declare the string used to hold
             // the decrypted text.
