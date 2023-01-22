@@ -25,8 +25,9 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<IFileProvider, FileProvider>();
             services.AddTransient<IDirectoryProvider, DirectoryProvider>();
             services.AddTransient<IAesEncryptionService, AesEncryptionService>();
-
+            services.AddTransient<IAesDerivedKeyEncryptionService, AesDerivedKeyEncryptionService>();
             services.Configure<AesEncryptionServiceOptions>(configuration.GetSection(nameof(AesEncryptionServiceOptions)));
+            services.Configure<AesDerivedKeyEncryptionServiceOptions>(configuration.GetSection(nameof(AesDerivedKeyEncryptionServiceOptions)));
 
         }
     }
