@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCore.Utilities.Tests", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utility", "Utility", "{0A7D0BD5-800E-4B7D-A351-916BE3DDE518}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncryptionKeyGenerator", "EncryptionKeyGenerator\EncryptionKeyGenerator.csproj", "{F2ADCF9A-3688-47AF-9998-95930BC034AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EncryptionKeyGenerator", "EncryptionKeyGenerator\EncryptionKeyGenerator.csproj", "{F2ADCF9A-3688-47AF-9998-95930BC034AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
