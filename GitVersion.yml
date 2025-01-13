@@ -13,7 +13,7 @@ branches:
     source-branches: [develop]
     prevent-increment:
       when-current-commit-tagged: true
-    is-release-branch: true 
+    is-release-branch: true
   pull-request:
     regex: (pull|pull\-requests|pr)[/-]
     label: 'pr'
