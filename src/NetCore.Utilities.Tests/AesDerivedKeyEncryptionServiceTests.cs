@@ -100,6 +100,26 @@ namespace ICG.NetCore.Utilities.Tests
             Assert.Equal(input, decrypted);
         }
 
+        [Theory]
+        [InlineData("CustomerManagementUser")]
+        [InlineData("aa")]
+        [InlineData("aaa")]
+        [InlineData("aaaa")]
+        [InlineData("aaaaa")]
+        [InlineData("aaaaaa")]
+        [InlineData("aaaaaaa")]
+        [InlineData("aaaaaaaa")]
+        [InlineData("aaaaaaaaa")]
+        [InlineData("aaaaaaaaaa")]
+        [InlineData("aaaaaaaaaaa")]
+        public void RoundTrip_WithGuidSalt(string input)
+        {
+            var salt = Guid.NewGuid().ToString();
+            var encrypted = _service.Encrypt(input, salt);
+            var decrypted = _service.Decrypt(encrypted, salt);
+            Assert.Equal(input, decrypted);
+        }
+
         /////<summary>
         /////    This test is need to ensure that stored values, that were encrypted with the known IV/Secret still can be properly decrypted.  
         /////    This was necessary after weird behaviors noticed in .NET 5 -> .NET 6 transition
