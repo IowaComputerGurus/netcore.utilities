@@ -13,12 +13,12 @@ jobs:
     env:
       solution-path: './src/ICG NetCore Utilities.sln'
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
     - name: Ensure .NET Installed
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
         
@@ -41,4 +41,4 @@ jobs:
       run: dotnet test "${{ env.solution-path }}" --no-build --configuration Release
     
     - name: Publish
-      run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.ICG_NUGET_API_KEY}}
+      run: dotnet nuget push **\*.nupkg -s 'https://api.nuget.org/v3/index.json' -k ${{secrets.ICG_NUGET_API_KEY}}
