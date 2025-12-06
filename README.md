@@ -14,32 +14,23 @@ ICG.NetCore.Utilities ![](https://img.shields.io/nuget/v/icg.netcore.utilities.s
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=IowaComputerGurus_netcore.utilities&metric=security_rating)](https://sonarcloud.io/dashboard?id=IowaComputerGurus_netcore.utilities)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=IowaComputerGurus_netcore.utilities&metric=sqale_index)](https://sonarcloud.io/dashboard?id=IowaComputerGurus_netcore.utilities)
 
-## Documentation
-
-📚 **[View Detailed Documentation](docs/README.md)** - Comprehensive guides with examples and best practices
-
-Quick links:
-- [QueryableExtensions](docs/QueryableExtensions.md) - Conditional LINQ operations
-- [EnumExtensions](docs/EnumExtensions.md) - Display attribute helpers
-- [Encryption Services](docs/EncryptionServices.md) - AES encryption services
-
 ## Usage
 
 ### Installation
 
 Install from NuGet
 
-```
+````
 Install-Package ICG.NetCore.Utilities
-```
+````
 
 ### Register Dependencies
 
-Inside of of your project's Startus.cs within the RegisterServices method add this line of code.
+Inside of of your project's Startup.cs within the RegisterServices method add this line of code.
 
-```
+````
 services.UseIcgNetCoreUtilities();
-```
+````
 
 ### Included C# Objects and Services
 
@@ -86,36 +77,36 @@ Extension methods for `IQueryable<T>` that provide conditional querying capabili
 **Available Methods:**
 
 - **WhereIf** - Conditionally applies a filter to the query
-  ```csharp
+  `````csharp
   var results = dbContext.Users
       .WhereIf(filterByActive, u => u.IsActive)
       .WhereIf(!string.IsNullOrEmpty(searchTerm), u => u.Name.Contains(searchTerm));
-  ```
+  ````
 
 - **OrderByIf** - Conditionally applies ascending order to the query
-  ```csharp
+  ````csharp
   var results = dbContext.Users
       .OrderByIf(sortByName, u => u.Name);
-  ```
+  ````
 
 - **OrderByDescendingIf** - Conditionally applies descending order to the query
-  ```csharp
+  ````csharp
   var results = dbContext.Users
       .OrderByDescendingIf(sortByNewest, u => u.CreatedDate);
-  ```
+  ````
 
 - **GetPage** - Returns a specific page of results (1-based page numbers)
-  ```csharp
+  ````csharp
   var results = dbContext.Users
       .OrderBy(u => u.Name)
       .GetPage(pageNumber: 2, pageSize: 10);
-  ```
+  ````
 
 - **DistinctBy** - Returns distinct elements by a specified key selector
-  ```csharp
+  ````csharp
   var uniqueUsers = dbContext.Users
       .DistinctBy(u => u.Email);
-  ```
+  ````
 
 ### EnumExtensions
 
@@ -124,7 +115,7 @@ Extension methods for working with Enum types and their Display attributes.
 **Available Methods:**
 
 - **GetDisplayNameOrStringValue** - Returns the Display Name attribute value or the enum's string value
-  ```csharp
+  ````csharp
   public enum Status
   {
       [Display(Name = "Active User")]
@@ -134,18 +125,18 @@ Extension methods for working with Enum types and their Display attributes.
   
   var displayName = Status.Active.GetDisplayNameOrStringValue(); // "Active User"
   var defaultName = Status.Inactive.GetDisplayNameOrStringValue(); // "Inactive"
-  ```
+  ````
 
 - **GetDisplayName** - Gets the Display Name attribute value (throws if not found)
-  ```csharp
+  ````csharp
   var displayName = Status.Active.GetDisplayName(); // "Active User"
-  ```
+  ````
 
 - **HasDisplayName** - Checks if an enum value has a Display attribute
-  ```csharp
+  ````csharp
   var hasDisplay = Status.Active.HasDisplayName(); // true
   var hasDisplay = Status.Inactive.HasDisplayName(); // false
-  ```
+  ````
 
 ### IdentityExtensions
 
@@ -154,24 +145,25 @@ Extension methods for working with IIdentity and claims.
 **Available Methods:**
 
 - **GetClaimValue** - Extracts the value of a specific claim type from a ClaimsIdentity
-  ```csharp
+  ````csharp
   // In a Razor view or controller
   var firstName = User.Identity.GetClaimValue("Profile:FirstName");
   var email = User.Identity.GetClaimValue(ClaimTypes.Email);
-  ```
+  ````
 
 ### AesEncryptionService
 
 Service for AES symmetric encryption with pre-configured key and IV values.
 
 **Configuration:**
-```csharp
-services.Configure<AesEncryptionServiceOptions>(options =>
-{
-    options.Key = "your-base64-encoded-key";
-    options.IV = "your-base64-encoded-iv";
-});
-```
+Add the following to your `appsettings.json`, Environment Variables, or any other configuration source to your application
+
+````json
+"AesEncryptionServiceOptions": {
+  "IV" : "VALUE",
+  "Key" : "Value"
+}
+````
 
 **Usage:**
 ```csharp
@@ -197,15 +189,14 @@ public class MyService
 Service for AES encryption using derived keys from a passphrase and salt (using Rfc2898DeriveBytes).
 
 **Configuration:**
-```csharp
-services.Configure<AesDerivedKeyEncryptionServiceOptions>(options =>
-{
-    options.Passphrase = "your-secure-passphrase";
-});
-```
+````json
+"AesDerivedKeyEncryptionServiceOptions" : {
+  "Passphrase": "YourPassphrase"
+}
+````
 
 **Usage:**
-```csharp
+````csharp
 public class MyService
 {
     private readonly IAesDerivedKeyEncryptionService _encryptionService;
@@ -222,14 +213,14 @@ public class MyService
         var decrypted = _encryptionService.Decrypt(encrypted, salt);
     }
 }
-```
+````
 
 ### DatabaseEnvironmentModelFactory
 
 Factory for creating DatabaseEnvironmentModel objects from connection strings.
 
 **Usage:**
-```csharp
+````csharp
 public class MyService
 {
     private readonly IDatabaseEnvironmentModelFactory _factory;
@@ -248,7 +239,7 @@ public class MyService
         Console.WriteLine($"Database: {model.DatabaseName}");
     }
 }
-```
+````
 
 ### Timezones
 
@@ -264,10 +255,10 @@ Static class containing constants for standard US timezone values.
 - `Timezones.MountainStandardTime`
 
 **Usage:**
-```csharp
+````csharp
 var centralTime = TimeZoneInfo.FindSystemTimeZoneById(Timezones.CentralStandardTime);
 var convertedTime = TimeZoneInfo.ConvertTime(DateTime.UtcNow, centralTime);
-```
+````
 
 ## Additional Information
 
