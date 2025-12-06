@@ -10,7 +10,7 @@ namespace ICG.NetCore.Utilities.Tests
     /// </summary>
     public class DirectoryProviderTests : IDisposable
     {
-        private readonly IDirectoryProvider _directoryProvider;
+        private readonly DirectoryProvider _directoryProvider;
         private readonly string _testRoot;
 
         public DirectoryProviderTests()
@@ -23,11 +23,26 @@ namespace ICG.NetCore.Utilities.Tests
         private string GetTestDir(string name = null) => Path.Combine(_testRoot, name ?? Guid.NewGuid().ToString("N"));
         private string GetTestFile(string dir = null, string name = null) => Path.Combine(dir ?? _testRoot, name ?? Guid.NewGuid().ToString("N") + ".txt");
 
+        private bool _disposed = false;
+
         public void Dispose()
         {
-            if (Directory.Exists(_testRoot))
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
             {
-                try { Directory.Delete(_testRoot, true); } catch { /* ignore cleanup errors */ }
+                if (disposing)
+                {
+                    if (Directory.Exists(_testRoot))
+                    {
+                        try { Directory.Delete(_testRoot, true); } catch { /* ignore cleanup errors */ }
+                    }
+                }
+                _disposed = true;
             }
         }
 

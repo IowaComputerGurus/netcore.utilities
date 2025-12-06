@@ -11,7 +11,7 @@ namespace ICG.NetCore.Utilities.Tests
     /// </summary>
     public class FileProviderTests : IDisposable
     {
-        private readonly IFileProvider _fileProvider;
+        private readonly FileProvider _fileProvider;
         private readonly string _testDirectory;
 
         public FileProviderTests()
@@ -26,17 +26,33 @@ namespace ICG.NetCore.Utilities.Tests
             return Path.Combine(_testDirectory, fileName ?? Guid.NewGuid().ToString("N") + ".txt");
         }
 
+        private bool _disposed = false;
+
         public void Dispose()
         {
-            if (Directory.Exists(_testDirectory))
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
             {
-                try
+                if (disposing)
                 {
-                    Directory.Delete(_testDirectory, true);
+                    if (Directory.Exists(_testDirectory))
+                    {
+                        try
+                        {
+                            Directory.Delete(_testDirectory, true);
+                        }
+                        catch { /* ignore cleanup errors */ }
+                    }
                 }
-                catch { /* ignore cleanup errors */ }
+                _disposed = true;
             }
         }
+
 
         [Fact]
         public void WriteAllText_And_ReadAllText_ShouldRoundTrip()
@@ -105,10 +121,13 @@ namespace ICG.NetCore.Utilities.Tests
         public void AppendAllLines_ShouldAppendLines()
         {
             var path = GetTestFilePath();
-            _fileProvider.WriteAllLines(path, new[] { "1" });
-            _fileProvider.AppendAllLines(path, new[] { "2", "3" });
+            var initialLines = new[] { "1" };
+            var appendedLines = new[] { "2", "3" };
+            var expectedLines = new[] { "1", "2", "3" };
+            _fileProvider.WriteAllLines(path, initialLines);
+            _fileProvider.AppendAllLines(path, appendedLines);
             var read = _fileProvider.ReadAllLines(path);
-            Assert.Equal(new[] { "1", "2", "3" }, read);
+            Assert.Equal(expectedLines, read);
         }
 
         [Fact]
@@ -116,10 +135,13 @@ namespace ICG.NetCore.Utilities.Tests
         {
             var path = GetTestFilePath();
             var encoding = Encoding.UTF8;
-            _fileProvider.WriteAllLines(path, new[] { "A" }, encoding);
-            _fileProvider.AppendAllLines(path, new[] { "B", "C" }, encoding);
+            var initialLines = new[] { "A" };
+            var appendedLines = new[] { "B", "C" };
+            var expectedLines = new[] { "A", "B", "C" };
+            _fileProvider.WriteAllLines(path, initialLines, encoding);
+            _fileProvider.AppendAllLines(path, appendedLines, encoding);
             var read = _fileProvider.ReadAllLines(path, encoding);
-            Assert.Equal(new[] { "A", "B", "C" }, read);
+            Assert.Equal(expectedLines, read);
         }
 
         [Fact]

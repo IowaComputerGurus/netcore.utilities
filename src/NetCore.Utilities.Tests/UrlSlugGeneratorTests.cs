@@ -8,7 +8,7 @@ namespace ICG.NetCore.Utilities.Tests
     /// </summary>
     public class UrlSlugGeneratorTests
     {
-        private readonly IUrlSlugGenerator _slugGenerator;
+        private readonly UrlSlugGenerator _slugGenerator;
 
         public UrlSlugGeneratorTests()
         {
