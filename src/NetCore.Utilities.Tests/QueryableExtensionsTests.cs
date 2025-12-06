@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -50,8 +51,9 @@ public class QueryableExtensionsTests
     {
         var query = GetTestEntities();
         var result = query.OrderByIf(true, x => x.Name).ToList();
+        string[] expectedOrder = ["Alpha", "Alpha", "Beta", "Gamma"];
 
-        Assert.Equal(new[] { "Alpha", "Alpha", "Beta", "Gamma" }, result.Select(x => x.Name).ToArray());
+        Assert.Equal(expectedOrder, result.Select(x => x.Name).ToArray());
     }
 
     [Fact]
@@ -59,8 +61,9 @@ public class QueryableExtensionsTests
     {
         var query = GetTestEntities();
         var result = query.OrderByIf(false, x => x.Name).ToList();
+        int[] expectedOrder = [1, 2, 3, 4];
 
-        Assert.Equal(new[] { 1, 2, 3, 4 }, result.Select(x => x.Id).ToArray());
+        Assert.Equal(expectedOrder, result.Select(x => x.Id).ToArray());
     }
 
     [Fact]
@@ -68,8 +71,9 @@ public class QueryableExtensionsTests
     {
         var query = GetTestEntities();
         var result = query.OrderByDescendingIf(true, x => x.Name).ToList();
+        string[] expectedOrder = ["Gamma", "Beta", "Alpha", "Alpha"];
 
-        Assert.Equal(new[] { "Gamma", "Beta", "Alpha", "Alpha" }, result.Select(x => x.Name).ToArray());
+        Assert.Equal(expectedOrder, result.Select(x => x.Name).ToArray());
     }
 
     [Fact]
@@ -77,8 +81,9 @@ public class QueryableExtensionsTests
     {
         var query = GetTestEntities();
         var result = query.OrderByDescendingIf(false, x => x.Name).ToList();
+        int[] expectedOrder = [1, 2, 3, 4];
 
-        Assert.Equal(new[] { 1, 2, 3, 4 }, result.Select(x => x.Id).ToArray());
+        Assert.Equal(expectedOrder, result.Select(x => x.Id).ToArray());
     }
 
     [Theory]
