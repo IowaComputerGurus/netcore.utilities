@@ -13,7 +13,7 @@
   <PropertyGroup>
     <PackageId>ICG.NetCore.Utilities</PackageId>
     <Title>NetCore Utilities</Title>
-    <Description>A collection of utilities designed to impove the unit-testability or speed development of .NET 10 and later development projects.</Description>
+    <Description>A collection of utilities designed to improve the unit-testability or speed development of .NET 10 and later development projects.</Description>
     <Copyright>Copyright 2021, IowaComputerGurus</Copyright>
     <PackageProjectUrl>https://github.com/IowaComputerGurus/netcore.utilities</PackageProjectUrl>
     <PackageTags>netcore;utility;unit-testing</PackageTags>
